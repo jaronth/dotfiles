@@ -1,0 +1,58 @@
+#!/bin/sh
+#  ---------------------------------------------------------------------------
+#
+#  Description:  The install script for my dotfiles
+#  Usage:        sh script/setup
+#
+#  Sections:
+#  1.   Variables and Methods
+#  2.   Install Dotfiles
+#  3.   Reminders & Notes
+#
+#  ---------------------------------------------------------------------------
+
+#   ---------------------------------------
+#   1.  VARIABLES AND METHODS
+#   ---------------------------------------
+
+#   Variables
+#   ------------------------------------------------------------
+    : ${MV:=/bin/mv}
+    : ${LN:=/bin/ln}
+    : ${PWD:=/bin/pwd}
+    : ${MKDIR:=/bin/mkdir}
+
+#   Methods
+#   ------------------------------------------------------------
+    backup() {
+        if [ -e "$1" ]; then
+            if [ ! -L "$1" ]; then
+                $MV "$1" "$1.backup"
+                echo "-----> Moved your old $1 config file to $1.backup"
+            fi
+        fi
+    }
+    symlink() {
+        if [ ! -e "$2" ]; then
+            echo "-----> Symlinking your new $2"
+            $LN -s $1 $2
+        fi
+    }
+
+
+#   ---------------------------------------
+#   2.  INSTALL DOTFILES
+#   ---------------------------------------
+
+    for file in zshrc bashrc prompt profile aliases; do
+        if [ -e "$file" ]; then
+            target=$HOME/.$file
+            backup $target
+            symlink $PWD/$file $target
+        fi
+    done
+
+
+#   ---------------------------------------
+#   3.  REMINDERS & NOTES
+#   ---------------------------------------
