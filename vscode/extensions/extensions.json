@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+      "arcticicestudio.nord-visual-studio-code",
+      "github.codespaces",
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-vscode.remote-server",
+      "ms-vscode-remote.remote-ssh",
+      "ms-vscode.sublime-keybindings",
+      "wakatime.vscode-wakatime"
+    ]
+}
